@@ -17,7 +17,7 @@ export function HabitCard({ name, streak, category, completed, onToggle }: Habit
       className={cn(
         "relative overflow-hidden transition-all duration-300 hover:shadow-lg",
         "border border-border/50 backdrop-blur-sm",
-        "animate-fade-in"
+        "animate-fade-in font-labrada"
       )}
     >
       <div
@@ -49,7 +49,7 @@ export function HabitCard({ name, streak, category, completed, onToggle }: Habit
         </div>
         <div className="mt-2">
           <p className="text-sm text-muted-foreground">
-            {streak} day{streak !== 1 ? "s" : ""} streak
+            {streak} día{streak !== 1 ? "s" : ""} de racha
           </p>
         </div>
       </button>

@@ -5,10 +5,10 @@ import { HabitCalendar } from "@/components/HabitCalendar";
 import { HabitStats } from "@/components/HabitStats";
 
 const INITIAL_HABITS = [
-  { id: 1, name: "Morning Meditation", category: "Wellness", streak: 7, completed: true },
-  { id: 2, name: "Read 30 Minutes", category: "Learning", streak: 4, completed: false },
-  { id: 3, name: "Exercise", category: "Health", streak: 12, completed: true },
-  { id: 4, name: "Write Journal", category: "Personal", streak: 3, completed: false },
+  { id: 1, name: "Meditación Matutina", category: "Bienestar", streak: 7, completed: true },
+  { id: 2, name: "Leer 30 Minutos", category: "Aprendizaje", streak: 4, completed: false },
+  { id: 3, name: "Ejercicio", category: "Salud", streak: 12, completed: true },
+  { id: 4, name: "Escribir Diario", category: "Personal", streak: 3, completed: false },
 ];
 
 const Index = () => {
@@ -23,10 +23,10 @@ const Index = () => {
   };
 
   return (
-    <div className="container mx-auto min-h-screen py-8 animate-fade-in">
+    <div className="container mx-auto min-h-screen py-8 animate-fade-in font-labrada">
       <div className="mb-8 text-center">
-        <h1 className="mb-2 text-4xl font-bold">Habit Tracker</h1>
-        <p className="text-muted-foreground">Track your daily habits and build streaks</p>
+        <h1 className="mb-2 text-4xl font-bold font-londrina">Seguimiento de Hábitos</h1>
+        <p className="text-muted-foreground">Rastrea tus hábitos diarios y construye rachas</p>
       </div>
 
       <div className="mb-8">
@@ -35,7 +35,7 @@ const Index = () => {
 
       <div className="grid gap-8 md:grid-cols-2">
         <div>
-          <h2 className="mb-4 text-2xl font-semibold">Today's Habits</h2>
+          <h2 className="mb-4 text-2xl font-semibold font-londrina">Hábitos de Hoy</h2>
           <div className="grid gap-4">
             {habits.map((habit) => (
               <HabitCard
@@ -51,7 +51,7 @@ const Index = () => {
         </div>
 
         <div>
-          <h2 className="mb-4 text-2xl font-semibold">Monthly Overview</h2>
+          <h2 className="mb-4 text-2xl font-semibold font-londrina">Vista Mensual</h2>
           <HabitCalendar />
         </div>
       </div>

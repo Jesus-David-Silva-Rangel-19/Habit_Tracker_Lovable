@@ -12,7 +12,7 @@ function CalendarDay({ date, isCompleted, isCurrent }: CalendarDayProps) {
   return (
     <div
       className={cn(
-        "flex h-10 w-10 items-center justify-center rounded-full transition-colors",
+        "flex h-10 w-10 items-center justify-center rounded-full transition-colors font-labrada",
         isCompleted && "bg-habit-completed text-white",
         isCurrent && "border-2 border-primary",
         !isCompleted && !isCurrent && "bg-habit-neutral text-muted-foreground"
@@ -29,7 +29,7 @@ export function HabitCalendar() {
 
   return (
     <Card className="p-6 backdrop-blur-sm">
-      <h3 className="mb-4 text-lg font-semibold">April 2024</h3>
+      <h3 className="mb-4 text-lg font-semibold font-londrina">Abril 2024</h3>
       <div className="grid grid-cols-7 gap-2">
         {days.map((day) => (
           <CalendarDay
