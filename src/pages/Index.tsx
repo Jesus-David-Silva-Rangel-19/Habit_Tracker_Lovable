@@ -32,10 +32,22 @@ const Index = () => {
 
   const toggleHabit = (id: number) => {
     setHabits((prev) =>
-      prev.map((habit) =>
-        habit.id === id ? { ...habit, completed: !habit.completed } : habit
-      )
+      prev.map((habit) => {
+        if (habit.id === id) {
+          const newCompleted = !habit.completed;
+          return {
+            ...habit,
+            completed: newCompleted,
+            streak: newCompleted ? habit.streak + 1 : Math.max(0, habit.streak - 1),
+          };
+        }
+        return habit;
+      })
     );
+    toast({
+      title: "Estado actualizado",
+      description: "El estado del hábito ha sido actualizado exitosamente",
+    });
   };
 
   const deleteHabit = (id: number) => {

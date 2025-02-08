@@ -46,7 +46,7 @@ export function HabitCard({
         </div>
         <div className="flex items-center gap-2">
           <Button
-            onClick={onToggle}
+            onClick={() => onToggle()}
             variant={completed ? "default" : "secondary"}
             size="icon"
             className={cn(
@@ -57,7 +57,7 @@ export function HabitCard({
             {completed ? <Check size={16} /> : <X size={16} />}
           </Button>
           <Button
-            onClick={onDelete}
+            onClick={() => onDelete()}
             variant="destructive"
             size="icon"
             className="transition-colors"
