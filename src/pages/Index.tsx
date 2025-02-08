@@ -3,6 +3,18 @@ import { useState } from "react";
 import { HabitCard } from "@/components/HabitCard";
 import { HabitCalendar } from "@/components/HabitCalendar";
 import { HabitStats } from "@/components/HabitStats";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Plus, X } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+
+interface Habit {
+  id: number;
+  name: string;
+  category: string;
+  streak: number;
+  completed: boolean;
+}
 
 const INITIAL_HABITS = [
   { id: 1, name: "Meditación Matutina", category: "Bienestar", streak: 7, completed: true },
@@ -12,7 +24,11 @@ const INITIAL_HABITS = [
 ];
 
 const Index = () => {
-  const [habits, setHabits] = useState(INITIAL_HABITS);
+  const [habits, setHabits] = useState<Habit[]>(INITIAL_HABITS);
+  const [showNewHabitForm, setShowNewHabitForm] = useState(false);
+  const [newHabitName, setNewHabitName] = useState("");
+  const [newHabitCategory, setNewHabitCategory] = useState("");
+  const { toast } = useToast();
 
   const toggleHabit = (id: number) => {
     setHabits((prev) =>
@@ -20,6 +36,42 @@ const Index = () => {
         habit.id === id ? { ...habit, completed: !habit.completed } : habit
       )
     );
+  };
+
+  const deleteHabit = (id: number) => {
+    setHabits((prev) => prev.filter((habit) => habit.id !== id));
+    toast({
+      title: "Hábito eliminado",
+      description: "El hábito ha sido eliminado exitosamente",
+    });
+  };
+
+  const addNewHabit = () => {
+    if (!newHabitName.trim() || !newHabitCategory.trim()) {
+      toast({
+        title: "Error",
+        description: "Por favor completa todos los campos",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const newHabit: Habit = {
+      id: Math.max(...habits.map((h) => h.id)) + 1,
+      name: newHabitName,
+      category: newHabitCategory,
+      streak: 0,
+      completed: false,
+    };
+
+    setHabits((prev) => [...prev, newHabit]);
+    setNewHabitName("");
+    setNewHabitCategory("");
+    setShowNewHabitForm(false);
+    toast({
+      title: "Hábito creado",
+      description: "El nuevo hábito ha sido creado exitosamente",
+    });
   };
 
   return (
@@ -35,7 +87,35 @@ const Index = () => {
 
       <div className="grid gap-8 md:grid-cols-2">
         <div>
-          <h2 className="mb-4 text-2xl font-semibold font-londrina">Hábitos de Hoy</h2>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-2xl font-semibold font-londrina">Hábitos de Hoy</h2>
+            <Button
+              onClick={() => setShowNewHabitForm(!showNewHabitForm)}
+              className="gap-2"
+            >
+              {showNewHabitForm ? <X size={20} /> : <Plus size={20} />}
+              {showNewHabitForm ? "Cancelar" : "Nuevo Hábito"}
+            </Button>
+          </div>
+
+          {showNewHabitForm && (
+            <div className="mb-4 space-y-4 rounded-lg border p-4">
+              <Input
+                placeholder="Nombre del hábito"
+                value={newHabitName}
+                onChange={(e) => setNewHabitName(e.target.value)}
+              />
+              <Input
+                placeholder="Categoría"
+                value={newHabitCategory}
+                onChange={(e) => setNewHabitCategory(e.target.value)}
+              />
+              <Button onClick={addNewHabit} className="w-full">
+                Crear Hábito
+              </Button>
+            </div>
+          )}
+
           <div className="grid gap-4">
             {habits.map((habit) => (
               <HabitCard
@@ -45,6 +125,7 @@ const Index = () => {
                 streak={habit.streak}
                 completed={habit.completed}
                 onToggle={() => toggleHabit(habit.id)}
+                onDelete={() => deleteHabit(habit.id)}
               />
             ))}
           </div>
