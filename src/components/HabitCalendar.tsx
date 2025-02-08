@@ -24,12 +24,21 @@ function CalendarDay({ date, isCompleted, isCurrent }: CalendarDayProps) {
 }
 
 export function HabitCalendar() {
+  const currentDate = new Date(2025, 1, 8); // February 8, 2025
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
-  const currentDay = new Date().getDate();
+  const currentDay = currentDate.getDate();
+
+  const months = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  ];
+  
+  const currentMonth = months[currentDate.getMonth()];
+  const currentYear = currentDate.getFullYear();
 
   return (
     <Card className="p-6 backdrop-blur-sm">
-      <h3 className="mb-4 text-lg font-semibold font-londrina">Abril 2024</h3>
+      <h3 className="mb-4 text-lg font-semibold font-londrina">{currentMonth} {currentYear}</h3>
       <div className="grid grid-cols-7 gap-2">
         {days.map((day) => (
           <CalendarDay
